@@ -42,7 +42,7 @@ public class BeepPrintExample {
 		thread.start();*/
 		
 		// 3단계. 람다식 적용해보자.
-		Thread thread = new Thread( () -> {
+		/*Thread thread = new Thread( () -> {
 			Toolkit toolkit = Toolkit.getDefaultToolkit();
 			
 			for(int i=0; i<5; i++){
@@ -55,6 +55,29 @@ public class BeepPrintExample {
 				}
 			}
 		});
+		thread.start();*/
+		
+		// Runnable 구현이 아닌 Thread 상속으로 구현하는 법(이건 잘 안 쓸거 같은데...?)
+		/*Thread thread = new BeepThread();
+		thread.start();*/
+		
+		// 마찬가지로 익명 객체로 쓸 수도 있음
+		Thread thread = new Thread(){
+			@Override
+			public void run() {
+				Toolkit toolkit = Toolkit.getDefaultToolkit();
+				
+				for(int i=0; i<5; i++){
+					toolkit.beep(); // 비프음 발생
+					
+					try {
+						Thread.sleep(500); // 0.5초간 일시 정지
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		};
 		thread.start();
 		
 		// 프린트는 메인 스레드에서 실행.
